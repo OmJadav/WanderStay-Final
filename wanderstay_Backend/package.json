@@ -1,0 +1,23 @@
+{
+  "name": "wanderstay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "moment": "^2.29.4",
+    "mongoose": "^7.5.0",
+    "nodemon": "^3.0.1",
+    "router": "^1.3.8",
+    "stripe": "^13.5.0",
+    "uuid": "^9.0.0"
+  }
+}
