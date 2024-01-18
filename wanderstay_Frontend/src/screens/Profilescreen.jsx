@@ -6,6 +6,8 @@ import Loader from "../components/Loader";
 import Error from "../components/Error";
 import Swal from "sweetalert2";
 import { Divider, Space, Tag } from "antd";
+import backendUrl from "../urlHelper/urlHelper";
+
 function Profilescreen() {
   const user = JSON.parse(localStorage.getItem("currentUser"));
 
@@ -19,13 +21,11 @@ function Profilescreen() {
     <div className="ml-3 mt-3 bs mr-3">
       <Tabs defaultActiveKey="1">
         <TabPane tab="Profile" key="1">
-          <h1 className="h1-heading">My Profile</h1>
+          <h1 className="h1-heading font-bold">My Profile</h1>
           <br />
           <h1 className="h1-heading">Name : {user.name}</h1>
           <h1 className="h1-heading">Email : {user.email}</h1>
-          <h1 className="h1-heading">
-            isAdmin : {user.isAdmin ? "YES" : "NO"}
-          </h1>
+          <h1 className="h1-heading">{user.isAdmin ? "Admin : YES" : null}</h1>
           <h1 className="h1-heading">Userid: {user._id}</h1>
         </TabPane>
         <TabPane tab="Bookings" key="2">
@@ -49,12 +49,9 @@ export function MyBookings() {
       try {
         setloading(true);
         const response = await (
-          await axios.post(
-            "https://wander-stay-9zcs.onrender.com/api/bookings/getbookingsbyuserid",
-            {
-              userid: user._id,
-            }
-          )
+          await axios.post(`${backendUrl}/api/bookings/getbookingsbyuserid`, {
+            userid: user._id,
+          })
         ).data;
         console.log(response);
         setbookings(response);
@@ -72,13 +69,10 @@ export function MyBookings() {
     try {
       setloading(true);
       const result = (
-        await axios.post(
-          "https://wander-stay-9zcs.onrender.com/api/bookings/cancelbooking",
-          {
-            bookingid,
-            roomid,
-          }
-        )
+        await axios.post(`${backendUrl}/api/bookings/cancelbooking`, {
+          bookingid,
+          roomid,
+        })
       ).data;
       console.log(result);
       setloading(false);
@@ -99,7 +93,7 @@ export function MyBookings() {
     <div className="container mx-auto flex justify-center">
       <div className="w-full md:w-2/3 lg:w-1/2 xl:w-1/2">
         {loading && <Loader />}
-        {bookings &&
+        {bookings && bookings.length > 0 ? (
           bookings.map((booking) => {
             return (
               <div
@@ -145,7 +139,10 @@ export function MyBookings() {
                 )}
               </div>
             );
-          })}
+          })
+        ) : (
+          <h2>You Don't Have Any Bookings Yet!!</h2>
+        )}
       </div>
     </div>
   );

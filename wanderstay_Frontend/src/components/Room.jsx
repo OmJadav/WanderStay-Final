@@ -5,7 +5,7 @@ import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { Carousel } from "flowbite-react";
-function Room({ room, fromdate, todate }) {
+function Room({ room, fromdate, todate, price }) {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -25,6 +25,7 @@ function Room({ room, fromdate, todate }) {
           <p>Max Count : {room.maxcount}</p>
           <p>Phone Number : +91 {room.phonenumber}</p>
           <p>Type : {room.type}</p>
+          <p>Price : ₹ {room.rentperday} / day</p>
         </b>
 
         <div style={{ float: "right" }}>

@@ -3,6 +3,7 @@ import axios from "axios";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import Success from "../components/Success";
+import backendUrl from "../urlHelper/urlHelper";
 
 function Registerscreen() {
   const [name, setname] = useState("");
@@ -41,10 +42,7 @@ function Registerscreen() {
       try {
         setloading(true);
         const result = (
-          await axios.post(
-            "https://wander-stay-9zcs.onrender.com/api/users/register",
-            user
-          )
+          await axios.post(`${backendUrl}/api/users/register`, user)
         ).data;
         setloading(false);
         setsuccess(true);

@@ -6,6 +6,8 @@ import Error from "../components/Error";
 import moment from "moment";
 import StripeCheckout from "react-stripe-checkout";
 import Swal from "sweetalert2";
+import backendUrl from "../urlHelper/urlHelper";
+
 function Bookingscreen({ match }) {
   const { roomid, fromdate, todate } = useParams();
   const [loading, setloading] = useState(true);
@@ -25,12 +27,9 @@ function Bookingscreen({ match }) {
       try {
         setloading(true);
         const response = (
-          await axios.post(
-            "https://wander-stay-9zcs.onrender.com/api/rooms/getroombyid",
-            {
-              roomid: roomid,
-            }
-          )
+          await axios.post(`${backendUrl}/api/rooms/getroombyid`, {
+            roomid: roomid,
+          })
         ).data;
         settotalamount(response.rentperday * totaldays);
         setroom(response);
@@ -43,28 +42,19 @@ function Bookingscreen({ match }) {
 
     fetchData();
   }, []);
-
-  // async function bookRoom() {
-  //     const bookingDetails = {
-  //         room,
-  //         userid: JSON.parse(localStorage.getItem('currentUser'))._id,
-  //         fromdate,
-  //         todate,
-  //         totalamount,
-  //         totaldays
-  //     }
-
-  //     try {
-  //         const result = await axios.post('/api/bookings/bookroom', bookingDetails)
-  //     } catch (error) {
-  //     }
-  // }
+  function sendMail(bookingDetails) {
+    const email = axios.post(
+      `${backendUrl}/api/send-email`,
+      bookingDetails
+    ).data;
+  }
 
   async function onToken(token) {
     console.log(token);
     const bookingDetails = {
       room,
       userid: JSON.parse(localStorage.getItem("currentUser"))._id,
+      email: JSON.parse(localStorage.getItem("currentUser")).email,
       fromdate,
       todate,
       totalamount,
@@ -75,7 +65,7 @@ function Bookingscreen({ match }) {
     try {
       setloading(true);
       const result = await axios.post(
-        "https://wander-stay-9zcs.onrender.com/api/bookings/bookroom",
+        `${backendUrl}/api/bookings/bookroom`,
         bookingDetails
       );
       setloading(false);
@@ -84,7 +74,12 @@ function Bookingscreen({ match }) {
         "Your Room Booked Successfully",
         "success"
       ).then((result) => {
-        window.location.href = "/profile";
+        if (result.isConfirmed) {
+          sendMail(bookingDetails);
+          window.location.href = "/profile";
+        } else {
+          window.location.href = "/profile";
+        }
       });
     } catch (error) {
       setloading(false);

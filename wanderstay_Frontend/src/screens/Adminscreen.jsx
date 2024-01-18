@@ -5,6 +5,7 @@ import Loader from "../components/Loader";
 import Error from "../components/Error";
 import axios from "axios";
 import Swal from "sweetalert2";
+import backendUrl from "../urlHelper/urlHelper";
 function Adminscreen() {
   useEffect(() => {
     if (!JSON.parse(localStorage.getItem("currentUser")).isAdmin) {
@@ -46,9 +47,7 @@ export function Bookings() {
     const fetchData = async () => {
       try {
         const response = await (
-          await axios.get(
-            "https://wander-stay-9zcs.onrender.com/api/bookings/getallbookings"
-          )
+          await axios.get(`${backendUrl}/api/bookings/getallbookings`)
         ).data;
         setbookings(response);
         setloading(false);
@@ -63,167 +62,127 @@ export function Bookings() {
   }, []);
 
   return (
-    // <div className="row">
-    //   <div className="col-md-12">
-    //     <h1>Bookings</h1>
-    //     {loading && <Loader />}
-
-    //     <table className="table table-bordered table-dark">
-    //       <thead className="bs">
-    //         <tr>
-    //           <th>Booking Id</th>
-    //           <th>User Id</th>
-    //           <th>Room</th>
-    //           <th>From</th>
-    //           <th>To</th>
-    //           <th>Status</th>
-    //         </tr>
-    //       </thead>
-    //       <tbody>
-    //         {bookings.length &&
-    //           bookings.map((booking) => {
-    //             return (
-    //               <tr>
-    //                 <td>{booking._id}</td>
-    //                 <td>{booking.userid}</td>
-    //                 <td>{booking.room}</td>
-    //                 <td>{booking.fromdate}</td>
-    //                 <td>{booking.todate}</td>
-    //                 <td>{booking.status}</td>
-    //               </tr>
-    //             );
-    //           })}
-    //       </tbody>
-    //     </table>
-    //   </div>
-    // </div>
     <>
       <h1 className="h1-heading">Bookings</h1>
       {loading && <Loader />}
-      <div className="p-6 overflow-scroll px-0">
-        <table className="mt-4 w-full min-w-max table-auto text-left">
-          <thead>
-            <tr>
-              <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                  Booking Id{" "}
-                </p>
-              </th>
-              <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                  User Id{" "}
-                </p>
-              </th>
-              <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                  Room{" "}
-                </p>
-              </th>
-              {/* <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+      {bookings && bookings.length > 0 ? (
+        <div className="p-6 overflow-scroll px-0">
+          <table className="mt-4 w-full min-w-max table-auto text-left">
+            <thead>
+              <tr>
+                <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                  <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
+                    Booking Id{" "}
+                  </p>
+                </th>
+                <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                  <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
+                    User Id{" "}
+                  </p>
+                </th>
+                <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                  <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
+                    Room{" "}
+                  </p>
+                </th>
+                {/* <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
                 <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
                   Rent Per Day{" "}
                 </p>
               </th> */}
-              <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                  From{" "}
-                </p>
-              </th>
-              <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                  To{" "}
-                </p>
-              </th>
-              <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                  Status{" "}
-                </p>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {bookings.length &&
-              bookings.map((booking) => {
-                return (
-                  <tr>
-                    <td className="p-4 border-b border-blue-gray-50">
-                      <div className="flex items-center gap-3">
-                        <div className="flex flex-col">
-                          <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                            {booking._id}
-                          </p>
-                          {/* <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal opacity-70">
+                <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                  <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
+                    From{" "}
+                  </p>
+                </th>
+                <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                  <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
+                    To{" "}
+                  </p>
+                </th>
+                <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                  <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
+                    Status{" "}
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {bookings.length &&
+                bookings.map((booking) => {
+                  return (
+                    <tr>
+                      <td className="p-4 border-b border-blue-gray-50">
+                        <div className="flex items-center gap-3">
+                          <div className="flex flex-col">
+                            <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                              {booking._id}
+                            </p>
+                            {/* <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal opacity-70">
                       Start date: 10 Dec 2023
                     </p> */}
-                        </div>
-                      </div>
-                    </td>
-                    <td className="p-4 border-b border-blue-gray-50">
-                      <div className="flex items-center gap-3">
-                        <div className="flex flex-col">
-                          <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                            {booking.userid}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="p-4 border-b border-blue-gray-50">
-                      <div className="flex items-center gap-3">
-                        <div className="flex flex-col">
-                          <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                            {booking.room}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-
-                    {/* <td className="p-4 border-b border-blue-gray-50">
-                      <div className="flex items-center gap-3">
-                        <div className="flex flex-col">
-                          <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                            ₹ {room.rentperday}
-                          </p>
-                        </div>
-                      </div>
-                    </td> */}
-                    <td className="p-4 border-b border-blue-gray-50">
-                      <div className="flex items-center gap-3">
-                        <div className="flex flex-col">
-                          <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                            {booking.fromdate}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-
-                    <td className="p-4 border-b border-blue-gray-50">
-                      <div className="flex items-center gap-3">
-                        <div className="flex flex-col">
-                          <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                            {booking.todate}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="p-4 border-b border-blue-gray-50">
-                      <div class="w-max">
-                        {booking.status == "booked" ? (
-                          <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md">
-                            <span class="">{booking.status}</span>
                           </div>
-                        ) : (
-                          <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-red-500/20 text-red-700 py-1 px-2 text-xs rounded-md">
-                            <span class="">{booking.status}</span>
+                        </div>
+                      </td>
+                      <td className="p-4 border-b border-blue-gray-50">
+                        <div className="flex items-center gap-3">
+                          <div className="flex flex-col">
+                            <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                              {booking.userid}
+                            </p>
                           </div>
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
-      </div>
+                        </div>
+                      </td>
+                      <td className="p-4 border-b border-blue-gray-50">
+                        <div className="flex items-center gap-3">
+                          <div className="flex flex-col">
+                            <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                              {booking.room}
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="p-4 border-b border-blue-gray-50">
+                        <div className="flex items-center gap-3">
+                          <div className="flex flex-col">
+                            <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                              {booking.fromdate}
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td className="p-4 border-b border-blue-gray-50">
+                        <div className="flex items-center gap-3">
+                          <div className="flex flex-col">
+                            <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                              {booking.todate}
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="p-4 border-b border-blue-gray-50">
+                        <div class="w-max">
+                          {booking.status == "booked" ? (
+                            <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md">
+                              <span class="">{booking.status}</span>
+                            </div>
+                          ) : (
+                            <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-red-500/20 text-red-700 py-1 px-2 text-xs rounded-md">
+                              <span class="">{booking.status}</span>
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <h2>You Don't Have Any Bookings Yet!!</h2>
+      )}
     </>
   );
 }
@@ -237,9 +196,7 @@ export function Rooms() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "https://wander-stay-9zcs.onrender.com/api/rooms/getallrooms"
-        );
+        const response = await axios.get(`${backendUrl}/api/rooms/getallrooms`);
         setrooms(response.data);
         setloading(false);
       } catch (error) {
@@ -253,40 +210,7 @@ export function Rooms() {
   }, []);
 
   return (
-    // <div className="row">
-    //   <div className="col-md-12">
-    //     <h1>Rooms</h1>
-    //     {loading && <Loader />}
-
-    //     <table className="table table-bordered table-dark">
-    //       <thead className="bs">
-    //         <tr>
-    //           <th>Room Id</th>
-    //           <th>Room Name</th>
-    //           <th>Type</th>
-    //           <th>Rent Per Day</th>
-    //           <th>Max Count</th>
-    //           <th>Phonenumber</th>
-    //         </tr>
-    //       </thead>
-    //       <tbody>
-    //         {rooms.length &&
-    //           rooms.map((room) => {
-    //             return (
-    //               <tr>
-    //                 <td>{room._id}</td>
-    //                 <td>{room.name}</td>
-    //                 <td>{room.type}</td>
-    //                 <td>₹ {room.rentperday}</td>
-    //                 <td>{room.maxcount}</td>
-    //                 <td>{room.phonenumber}</td>
-    //               </tr>
-    //             );
-    //           })}
-    //       </tbody>
-    //     </table>
-    //   </div>
-    // </div>
+    //
 
     <>
       <h1 className="h1-heading">Rooms</h1>
@@ -417,9 +341,7 @@ export function Users() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "https://wander-stay-9zcs.onrender.com/api/users/getallusers"
-        );
+        const response = await axios.get(`${backendUrl}/api/users/getallusers`);
         setusers(response.data);
         setloading(false);
       } catch (error) {
@@ -433,35 +355,6 @@ export function Users() {
   }, []);
 
   return (
-    // <div className="row">
-    //   <div className="col-md-12">
-    //     <h1>Users</h1>
-    //     {loading && <Loader />}
-    //     <table className="table table-bordered table-dark">
-    //       <thead>
-    //         <tr>
-    //           <th>User Id</th>
-    //           <th>Name</th>
-    //           <th>Email</th>
-    //           <th>Is Admin</th>
-    //         </tr>
-    //       </thead>
-    //       <tbody>
-    //         {users &&
-    //           users.map((user) => {
-    //             return (
-    //               <tr>
-    //                 <td>{user._id}</td>
-    //                 <td>{user.name}</td>
-    //                 <td>{user.email}</td>
-    //                 <td>{user.isAdmin ? "YES" : "NO"}</td>
-    //               </tr>
-    //             );
-    //           })}
-    //       </tbody>
-    //     </table>
-    //   </div>
-    // </div>
     <>
       <h1 className="h1-heading">Users</h1>
       {loading && <Loader />}

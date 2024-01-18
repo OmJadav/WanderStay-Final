@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import backendUrl from "../urlHelper/urlHelper";
 
 function Loginscreen() {
   const [email, setemail] = useState("");
@@ -29,12 +30,8 @@ function Loginscreen() {
       };
       try {
         setloading(true);
-        const result = (
-          await axios.post(
-            "https://wander-stay-9zcs.onrender.com/api/users/login",
-            user
-          )
-        ).data;
+        const result = (await axios.post(`${backendUrl}/api/users/login`, user))
+          .data;
         setloading(false);
         localStorage.setItem("currentUser", JSON.stringify(result));
         window.location.href = "/home";

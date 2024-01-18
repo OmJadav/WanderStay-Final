@@ -3,6 +3,7 @@ import Room from "../components/Room";
 import axios from "axios";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import backendUrl from "../urlHelper/urlHelper";
 
 import "antd/dist/reset.css";
 import { DatePicker, Space } from "antd";
@@ -25,9 +26,7 @@ function Homescreen() {
       try {
         setloading(true);
         const response = (
-          await axios.get(
-            "https://wander-stay-9zcs.onrender.com/api/rooms/getallrooms"
-          )
+          await axios.get(`${backendUrl}/api/rooms/getallrooms`)
         ).data;
         console.log(response);
         setrooms(response);
@@ -131,13 +130,14 @@ function Homescreen() {
   return (
     <div className="container mx-auto mb-5 ">
       <div className="p-3 flex flex-col md:flex-row justify-center items-center mt-5 space-y-3 md:space-y-0 md:space-x-3">
-        <div className="w-full md:w-1/4 mb-2 md:mb-0">
+        <div className="w-full md:w-1/5 mb-2 md:mb-0">
           <div className="relative">
             <RangePicker
               format="DD-MM-YYYY"
               disabledDate={disabledDate}
               value={selectedDate}
               onChange={filterByDate}
+              className="w-full "
             />
           </div>
         </div>
@@ -178,7 +178,12 @@ function Homescreen() {
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
             {rooms.map((room) => (
               <div className="mt-3">
-                <Room room={room} fromdate={fromdate} todate={todate} />
+                <Room
+                  room={room}
+                  fromdate={fromdate}
+                  todate={todate}
+                  price={room.price}
+                />
               </div>
             ))}
           </div>

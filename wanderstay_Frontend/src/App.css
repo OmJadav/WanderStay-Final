@@ -6,7 +6,29 @@
   height: 40vmin;
   pointer-events: none;
 }
+::-webkit-scrollbar {
+  width: 8px !important; /* Set the width of the scrollbar */
+}
 
+/* Handle on hover */
+::-webkit-scrollbar:hover {
+  width: 12px !important; /* Adjust width on hover if needed */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1 !important; /* Set the background color of the track */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888 !important; /* Set the color of the scrollbar handle */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555 !important; /* Adjust handle color on hover if needed */
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
