@@ -10,26 +10,45 @@ function Loginscreen() {
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState();
 
+  const isEmailValid = (email) => {
+    // Regular expression for basic email validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  };
+
+  const isPasswordValid = (password) => {
+    // Minimum password length is 4 characters
+    return password.length >= 4;
+  };
+
   async function login() {
-    const user = {
-      email,
-      password,
-    };
-    try {
-      setloading(true);
-      const result = (
-        await axios.post(
-          "https://wander-stay-9zcs.onrender.com/api/users/login",
-          user
-        )
-      ).data;
-      setloading(false);
-      localStorage.setItem("currentUser", JSON.stringify(result));
-      window.location.href = "/home";
-    } catch (error) {
-      console.log(error);
-      setloading(false);
-      seterror(true);
+    if (isEmailValid(email) && isPasswordValid(password)) {
+      const user = {
+        email,
+        password,
+      };
+      try {
+        setloading(true);
+        const result = (
+          await axios.post(
+            "https://wander-stay-9zcs.onrender.com/api/users/login",
+            user
+          )
+        ).data;
+        setloading(false);
+        localStorage.setItem("currentUser", JSON.stringify(result));
+        window.location.href = "/home";
+      } catch (error) {
+        console.error(error);
+        setloading(false);
+        seterror(true);
+      }
+    } else {
+      if (!isEmailValid(email)) {
+        alert("Please enter a valid email address.");
+      } else if (!isPasswordValid(password)) {
+        alert("Password must be at least 4 characters long.");
+      }
     }
   }
 

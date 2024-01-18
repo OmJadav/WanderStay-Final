@@ -14,15 +14,29 @@ function Registerscreen() {
   const [error, seterror] = useState();
   const [success, setsuccess] = useState();
 
+  const isEmailValid = (email) => {
+    // Regular expression for basic email validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  };
+
+  const isPasswordValid = (password) => {
+    // Minimum password length is 4 characters
+    return password.length >= 4;
+  };
+
   async function register() {
-    if (password === cpassword) {
+    if (
+      password === cpassword &&
+      isEmailValid(email) &&
+      isPasswordValid(password)
+    ) {
       const user = {
         name,
         email,
         password,
         cpassword,
       };
-      console.log(user);
 
       try {
         setloading(true);
@@ -40,12 +54,18 @@ function Registerscreen() {
         setpassword("");
         setcpassword("");
       } catch (error) {
-        console.log(error);
+        console.error(error);
         setloading(false);
         seterror(true);
       }
     } else {
-      alert("Password Not Matched!!");
+      if (!isEmailValid(email)) {
+        alert("Please enter a valid email address.");
+      } else if (!isPasswordValid(password)) {
+        alert("Password must be at least 4 characters long.");
+      } else {
+        alert("Password Not Matched!!");
+      }
     }
   }
   return (
