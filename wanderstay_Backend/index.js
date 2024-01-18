@@ -31,7 +31,7 @@ const transporter = nodemailer.createTransport({
 });
 
 
-app.post('/api/send-email', async (req, res) => {
+app.post('/send-email', async (req, res) => {
     const { fromdate, email, todate, room, userid, totaldays, totalamount } = req.body;
     const mailOptions = {
         from: '"Confirmation" <omjadav04@gmail.com>', // sender address
@@ -59,7 +59,7 @@ app.post('/api/send-email', async (req, res) => {
         </tr>
         <tr>
         <th>Total Amount</th>
-        <td>${totalamount}</td>
+        <td> ₹ ${totalamount}</td>
         </tr>
         </table>`,
     };

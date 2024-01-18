@@ -43,10 +43,7 @@ function Bookingscreen({ match }) {
     fetchData();
   }, []);
   function sendMail(bookingDetails) {
-    const email = axios.post(
-      `${backendUrl}/api/send-email`,
-      bookingDetails
-    ).data;
+    const email = axios.post(`${backendUrl}/send-email`, bookingDetails).data;
   }
 
   async function onToken(token) {
