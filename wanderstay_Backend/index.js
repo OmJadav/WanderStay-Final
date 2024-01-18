@@ -5,6 +5,9 @@ const { env } = require('process');
 const dbConfig = require('./db')
 const roomsRoute = require('./routes/roomsRoute')
 const usersRoute = require('./routes/userRoute')
+const cors = require('cors');
+
+app.use(cors());
 
 const bookingsRoute = require('./routes/bookingsRoute')
 app.use(express.json())
