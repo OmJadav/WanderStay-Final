@@ -17,11 +17,19 @@ function Homescreen() {
   const [duplicaterooms, setduplicaterooms] = useState([]);
   const [searchkey, setsearchkey] = useState("");
   const [type, settype] = useState("all");
+
+  const [selectedDate, setSelectedDate] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         setloading(true);
-        const response = (await axios.get("/api/rooms/getallrooms")).data;
+        const response = (
+          await axios.get(
+            "https://wander-stay-9zcs.onrender.com/api/rooms/getallrooms"
+          )
+        ).data;
+        console.log(response);
         setrooms(response);
         setduplicaterooms(response);
         setloading(false);
@@ -34,7 +42,18 @@ function Homescreen() {
     fetchData();
   }, []);
 
+  // for date selection disable
+
+  const disabledDate = (current) => {
+    // Disable dates before today (including today)
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return current && current.valueOf() < today.valueOf();
+  };
+
   function filterByDate(dates) {
+    setSelectedDate(dates);
+
     setfromdate(dates[0].format("DD-MM-YYYY"));
     settodate(dates[1].format("DD-MM-YYYY"));
 
@@ -114,7 +133,12 @@ function Homescreen() {
       <div className="p-3 flex flex-col md:flex-row justify-center items-center mt-5 space-y-3 md:space-y-0 md:space-x-3">
         <div className="w-full md:w-1/4 mb-2 md:mb-0">
           <div className="relative">
-            <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
+            <RangePicker
+              format="DD-MM-YYYY"
+              disabledDate={disabledDate}
+              value={selectedDate}
+              onChange={filterByDate}
+            />
           </div>
         </div>
 

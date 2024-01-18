@@ -13,6 +13,7 @@ import HomescreenPage from './pages/HomescreenPage';
 import BookingscreenPage from './pages/BookingscreenPage';
 import ProfilescreenPage from './pages/ProfilescreenPage';
 import AdminscreenPage from './pages/AdminscreenPage';
+import Try from './components/Try';
 function App() {
   return (
     <div className="App ">
@@ -28,6 +29,7 @@ function App() {
           <Route path="/profile" exact Component={ProfilescreenPage} />
           <Route path="/admin" exact Component={AdminscreenPage} />
           <Route path="/" exact Component={Landingscreen} />
+          <Route path="/try" exact Component={Try} />
         </Routes>
 
       </BrowserRouter>

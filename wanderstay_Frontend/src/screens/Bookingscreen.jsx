@@ -25,7 +25,12 @@ function Bookingscreen({ match }) {
       try {
         setloading(true);
         const response = (
-          await axios.post("/api/rooms/getroombyid", { roomid: roomid })
+          await axios.post(
+            "https://wander-stay-9zcs.onrender.com/api/rooms/getroombyid",
+            {
+              roomid: roomid,
+            }
+          )
         ).data;
         settotalamount(response.rentperday * totaldays);
         setroom(response);
@@ -69,7 +74,10 @@ function Bookingscreen({ match }) {
 
     try {
       setloading(true);
-      const result = await axios.post("/api/bookings/bookroom", bookingDetails);
+      const result = await axios.post(
+        "https://wander-stay-9zcs.onrender.com/api/bookings/bookroom",
+        bookingDetails
+      );
       setloading(false);
       Swal.fire(
         "Congratulations",

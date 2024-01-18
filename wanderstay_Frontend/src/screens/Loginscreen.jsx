@@ -17,7 +17,12 @@ function Loginscreen() {
     };
     try {
       setloading(true);
-      const result = (await axios.post("/api/users/login", user)).data;
+      const result = (
+        await axios.post(
+          "https://wander-stay-9zcs.onrender.com/api/users/login",
+          user
+        )
+      ).data;
       setloading(false);
       localStorage.setItem("currentUser", JSON.stringify(result));
       window.location.href = "/home";

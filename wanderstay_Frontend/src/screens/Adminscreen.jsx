@@ -46,7 +46,9 @@ export function Bookings() {
     const fetchData = async () => {
       try {
         const response = await (
-          await axios.get("/api/bookings/getallbookings")
+          await axios.get(
+            "https://wander-stay-9zcs.onrender.com/api/bookings/getallbookings"
+          )
         ).data;
         setbookings(response);
         setloading(false);
@@ -235,7 +237,9 @@ export function Rooms() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/rooms/getallrooms");
+        const response = await axios.get(
+          "https://wander-stay-9zcs.onrender.com/api/rooms/getallrooms"
+        );
         setrooms(response.data);
         setloading(false);
       } catch (error) {
@@ -413,7 +417,9 @@ export function Users() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/users/getallusers");
+        const response = await axios.get(
+          "https://wander-stay-9zcs.onrender.com/api/users/getallusers"
+        );
         setusers(response.data);
         setloading(false);
       } catch (error) {

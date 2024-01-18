@@ -49,9 +49,12 @@ export function MyBookings() {
       try {
         setloading(true);
         const response = await (
-          await axios.post("/api/bookings/getbookingsbyuserid", {
-            userid: user._id,
-          })
+          await axios.post(
+            "https://wander-stay-9zcs.onrender.com/api/bookings/getbookingsbyuserid",
+            {
+              userid: user._id,
+            }
+          )
         ).data;
         console.log(response);
         setbookings(response);
@@ -69,7 +72,13 @@ export function MyBookings() {
     try {
       setloading(true);
       const result = (
-        await axios.post("/api/bookings/cancelbooking", { bookingid, roomid })
+        await axios.post(
+          "https://wander-stay-9zcs.onrender.com/api/bookings/cancelbooking",
+          {
+            bookingid,
+            roomid,
+          }
+        )
       ).data;
       console.log(result);
       setloading(false);
