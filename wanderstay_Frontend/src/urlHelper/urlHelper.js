@@ -1,3 +1,3 @@
-const backendUrl = "http://localhost:5000"
+const backendUrl = "https://wander-stay-9zcs.onrender.com"
 
 module.exports = backendUrl;
