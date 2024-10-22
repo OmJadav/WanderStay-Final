@@ -6,7 +6,7 @@ function Footer() {
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
-            <a href="https://flowbite.com/" className="flex items-center">
+            <a href="#" className="flex items-center">
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
                 WanderStay
               </span>
@@ -38,7 +38,7 @@ function Footer() {
                 <li className="mb-4">
                   <a
                     target={"_blank"}
-                    href="https://github.com/Om117"
+                    href="https://github.com/omjadav"
                     className="hover:underline "
                   >
                     Github
@@ -92,7 +92,7 @@ function Footer() {
               <i class="fa-brands fa-linkedin"></i>
             </a>
             <a
-              href="https://www.github.com/Om117"
+              href="https://github.com/omjadav"
               target="_blank"
               className=" mr-5 text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >

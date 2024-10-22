@@ -177,7 +177,7 @@ function Homescreen() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
             {rooms.map((room) => (
-              <div className="mt-3">
+              <div className="mt-3  hover:scale-110 transition-all">
                 <Room
                   room={room}
                   fromdate={fromdate}
