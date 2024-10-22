@@ -3,6 +3,7 @@ import axios from "axios";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import backendUrl from "../urlHelper/urlHelper";
+import { Button } from "flowbite-react";
 
 function Loginscreen() {
   const [email, setemail] = useState("");
@@ -22,6 +23,10 @@ function Loginscreen() {
     return password.length >= 4;
   };
 
+  const useTestCreds = () => {
+    setemail("test@gmail.com");
+    setpassword("test");
+  };
   async function login() {
     if (isEmailValid(email) && isPasswordValid(password)) {
       const user = {
@@ -128,6 +133,11 @@ function Loginscreen() {
               Register
             </a>
           </p>
+          <div className=" justify-center">
+            <Button onClick={useTestCreds} color="failure">
+              Use Test User
+            </Button>
+          </div>
         </div>
       </div>
     </>
