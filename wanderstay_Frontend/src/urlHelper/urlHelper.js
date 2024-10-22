@@ -1,3 +1,3 @@
-const backendUrl = "https://wander-stay-9zcs.onrender.com"
+const backendUrl = "https://wander-stay-final-backend.vercel.app"
 
 module.exports = backendUrl;
