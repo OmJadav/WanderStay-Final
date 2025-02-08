@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { Carousel } from "flowbite-react";
 function Room({ room, fromdate, todate, price }) {
   const [show, setShow] = useState(false);
@@ -25,7 +24,7 @@ function Room({ room, fromdate, todate, price }) {
           <p>Max Count : {room.maxcount}</p>
           <p>Phone Number : +91 {room.phonenumber}</p>
           <p>Type : {room.type}</p>
-          <p>Price : ₹ {room.rentperday} / day</p>
+          <p>Price : ₹ {room.rentperday} / Night</p>
         </b>
 
         <div style={{ float: "right" }}>
@@ -78,9 +77,14 @@ function Room({ room, fromdate, todate, price }) {
                   <div className="bg-white px-4 pb-4 pt-5 sm:p-2 sm:pb-4">
                     <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
                       <Carousel>
-                        {room.imageurls.map((url) => {
+                        {room.imageurls.map((url, index) => {
                           return (
-                            <img src={url} alt="..." className=" bigimg" />
+                            <img
+                              key={index}
+                              src={url}
+                              alt="..."
+                              className=" bigimg"
+                            />
                           );
                         })}
                       </Carousel>

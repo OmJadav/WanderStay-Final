@@ -588,7 +588,10 @@ export function AddRoom() {
           />
 
           <div className="text-right">
-            <button className="btn btn-primary mt-3" onClick={addroom}>
+            <button
+              className="btn btn-primary mt-3 rounded-lg p-2"
+              onClick={addroom}
+            >
               ADD ROOM
             </button>
           </div>

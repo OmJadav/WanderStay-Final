@@ -89,14 +89,14 @@ function Footer() {
               target="_blank"
               className="mr-5 text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
-              <i class="fa-brands fa-linkedin"></i>
+              <i className="fa-brands fa-linkedin"></i>
             </a>
             <a
               href="https://github.com/omjadav"
               target="_blank"
               className=" mr-5 text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
-              <i class="fa-brands fa-github"></i>
+              <i className="fa-brands fa-github"></i>
             </a>
           </div>
         </div>
